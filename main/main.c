@@ -1,6 +1,5 @@
 /*
-gpio_set_direction(LED_RGB, GPIO_MODE_OUTPUT);
-gpio_set_level(LED_RGB, 0);
+
 */
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -14,6 +13,10 @@ gpio_set_level(LED_RGB, 0);
 #define DIGITO_ENCENDIDO ILI9341_BLUE2
 #define DIGITO_APAGADO 0x3800
 #define DIGITO_FONDO ILI9341_BLACK
+
+#define RGB_ROJO GPIO_NUM_1
+#define RGB_VERDE GPIO_NUM_8
+#define RGB_AZUL GPIO_NUM_10
 
 // Estructura para el manejo de los digitos del cronometro
 
@@ -33,6 +36,16 @@ void tft(void)
     digitos_t->decenas_segundos = 0;
     digitos_t->unidades_minutos = 0;
     digitos_t->decenas_minutos = 0;
+
+    // Configuracion de los pines RGB como salida
+    gpio_set_direction(RGB_ROJO, GPIO_MODE_OUTPUT);
+    gpio_set_direction(RGB_VERDE, GPIO_MODE_OUTPUT);
+    gpio_set_direction(RGB_AZUL, GPIO_MODE_OUTPUT);
+
+    // Encendemos el RGB azul
+    gpio_set_level(RGB_ROJO, 0);
+    gpio_set_level(RGB_VERDE, 0);
+    gpio_set_level(RGB_AZUL, 1);
 
     ILI9341Init();
     ILI9341Rotate(ILI9341_Landscape_1);
@@ -77,7 +90,6 @@ void app_main(void)
 {
     // Crear la tarea con tamaño de pila de 4096 bytes, otro valor no funcionaba
     xTaskCreate(tft, "Manejo_Display_tft", 4096, NULL, tskIDLE_PRIORITY + 1, NULL);
-
     while (1)
     {
         vTaskDelay(pdMS_TO_TICKS(1000)); // Retraso para no saturar la CPU
