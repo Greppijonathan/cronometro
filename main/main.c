@@ -1,14 +1,21 @@
-/* Cronometro en pantalla tft*/
+/*
+gpio_set_direction(LED_RGB, GPIO_MODE_OUTPUT);
+gpio_set_level(LED_RGB, 0);
+*/
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "ili9341.h"
 #include "digitos.h"
+#include "stdio.h"
+#include "driver/gpio.h"
 
 #define DIGITO_ANCHO 60
 #define DIGITO_ALTO 100
 #define DIGITO_ENCENDIDO ILI9341_BLUE2
 #define DIGITO_APAGADO 0x3800
 #define DIGITO_FONDO ILI9341_BLACK
+
+// Estructura para el manejo de los digitos del cronometro
 
 struct digitos_cronometro
 {
@@ -20,7 +27,7 @@ struct digitos_cronometro
 
 void tft(void)
 {
-    // Inicialización del LCD
+    // Inicialización de las variables del cronometro
     digitos_t = malloc(sizeof(struct digitos_cronometro));
     digitos_t->unidades_segundos = 0;
     digitos_t->decenas_segundos = 0;
@@ -34,23 +41,16 @@ void tft(void)
     panel_t horas = CrearPanel(30, 60, 2, DIGITO_ALTO, DIGITO_ANCHO, DIGITO_ENCENDIDO, DIGITO_APAGADO, DIGITO_FONDO);
     panel_t minutos = CrearPanel(170, 60, 2, DIGITO_ALTO, DIGITO_ANCHO, DIGITO_ENCENDIDO, DIGITO_APAGADO, DIGITO_FONDO);
 
-    // Ciclo principal
     while (1)
     {
-        // Incrementar unidades_segundos
+        // Rtina para el control del tiempo (segundos/minutos)
         digitos_t->unidades_segundos = (digitos_t->unidades_segundos + 1) % 10;
-
-        // Incrementar decenas_segundos cuando unidades_segundos vuelve a 0
         if (digitos_t->unidades_segundos == 0)
         {
             digitos_t->decenas_segundos = (digitos_t->decenas_segundos + 1) % 6;
-
-            // Incrementar minutos cuando decenas_segundos vuelve a 0
             if (digitos_t->decenas_segundos == 0)
             {
                 digitos_t->unidades_minutos = (digitos_t->unidades_minutos + 1) % 10;
-
-                // Incrementar decenas_minutos cuando unidades_minutos vuelve a 0
                 if (digitos_t->unidades_minutos == 0)
                 {
                     digitos_t->decenas_minutos = (digitos_t->decenas_minutos + 1) % 6;
@@ -58,26 +58,24 @@ void tft(void)
             }
         }
 
-        // Dibujar las horas (minutos en este caso)
+        // Se dibujan los digitos en pantalla, con el punto separador
         DibujarDigito(horas, 0, digitos_t->decenas_minutos);
         DibujarDigito(horas, 1, digitos_t->unidades_minutos);
 
-        // Dibujar los puntos separadores
         ILI9341DrawFilledCircle(160, 90, 5, DIGITO_ENCENDIDO);
         ILI9341DrawFilledCircle(160, 130, 5, DIGITO_ENCENDIDO);
 
-        // Dibujar los minutos (segundos en este caso)
         DibujarDigito(minutos, 0, digitos_t->decenas_segundos);
         DibujarDigito(minutos, 1, digitos_t->unidades_segundos);
 
-        // Pausa para que se incremente cada segundo
+        // Pausa para controlar un tiempo de 1 segundo en la rutina del tiempo
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
 }
 
 void app_main(void)
 {
-    // Crear la tarea con tamaño de pila suficiente
+    // Crear la tarea con tamaño de pila de 4096 bytes, otro valor no funcionaba
     xTaskCreate(tft, "Manejo_Display_tft", 4096, NULL, tskIDLE_PRIORITY + 1, NULL);
 
     while (1)
