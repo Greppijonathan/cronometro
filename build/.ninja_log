@@ -1240,3 +1240,20 @@
 9718	10050	7647481452410624	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/.bin_timestamp	41f3851ad9352a46
 10050	10146	0	esp-idf/esptool_py/CMakeFiles/app_check_size	fbcab58a4dd1a6a5
 10050	10146	0	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/esp-idf/esptool_py/CMakeFiles/app_check_size	fbcab58a4dd1a6a5
+156	339	7647431681092133	bootloader-prefix/src/bootloader-stamp/bootloader-build	96cfe7bd32c41e25
+156	339	7647431681092133	bootloader/bootloader.elf	96cfe7bd32c41e25
+156	339	7647431681092133	bootloader/bootloader.bin	96cfe7bd32c41e25
+156	339	7647431681092133	bootloader/bootloader.map	96cfe7bd32c41e25
+156	339	7647431681092133	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader-prefix/src/bootloader-stamp/bootloader-build	96cfe7bd32c41e25
+156	339	7647431681092133	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.elf	96cfe7bd32c41e25
+156	339	7647431681092133	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.bin	96cfe7bd32c41e25
+156	339	7647431681092133	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.map	96cfe7bd32c41e25
+164	481	7647485252987347	esp-idf/main/CMakeFiles/__idf_main.dir/main.c.obj	b347390f9199d173
+483	622	7647485254410789	esp-idf/main/libmain.a	bb6baa8ed9156a65
+622	8662	7647485334433487	esp-idf/esp_system/ld/sections.ld	52d1f62e3e68287c
+622	8662	7647485334433487	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/esp-idf/esp_system/ld/sections.ld	52d1f62e3e68287c
+8663	9204	7647485339857892	cronometro.elf	4378170c758677f7
+9204	9469	7647485342900683	.bin_timestamp	41f3851ad9352a46
+9204	9469	7647485342900683	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/.bin_timestamp	41f3851ad9352a46
+9469	9556	0	esp-idf/esptool_py/CMakeFiles/app_check_size	fbcab58a4dd1a6a5
+9469	9556	0	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/esp-idf/esptool_py/CMakeFiles/app_check_size	fbcab58a4dd1a6a5
