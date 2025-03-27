@@ -1,22 +1,4 @@
-/* funcion que solamente escribe una vez en la pantalla tft
-void app_main(void)
-{
-    ILI9341Init();
-    ILI9341Rotate(ILI9341_Landscape_1);
-
-    panel_t horas = CrearPanel(30, 60, 2, DIGITO_ALTO, DIGITO_ANCHO, DIGITO_ENCENDIDO, DIGITO_APAGADO, DIGITO_FONDO);
-    panel_t minutos = CrearPanel(170, 60, 2, DIGITO_ALTO, DIGITO_ANCHO, DIGITO_ENCENDIDO, DIGITO_APAGADO, DIGITO_FONDO);
-
-    DibujarDigito(horas, 0, 1);
-    DibujarDigito(horas, 1, 0);
-
-    ILI9341DrawFilledCircle(160, 90, 5, DIGITO_ENCENDIDO);
-    ILI9341DrawFilledCircle(160, 130, 5, DIGITO_ENCENDIDO);
-
-    DibujarDigito(minutos, 0, 0);
-    DibujarDigito(minutos, 1, 0);
-}
-*/
+/* Cronometro en pantalla tft*/
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "ili9341.h"
