@@ -28,7 +28,7 @@ struct digitos_cronometro
     int decenas_minutos;
 } *digitos_t;
 
-void tft(void)
+void Pantalla(void)
 {
     // Inicialización de las variables del cronometro
     digitos_t = malloc(sizeof(struct digitos_cronometro));
@@ -89,7 +89,7 @@ void tft(void)
 void app_main(void)
 {
     // Crear la tarea con tamaño de pila de 4096 bytes, otro valor no funcionaba
-    xTaskCreate(tft, "Manejo_Display_tft", 4096, NULL, tskIDLE_PRIORITY + 1, NULL);
+    xTaskCreate(Pantalla, "Manejo_Display_tft", 4096, NULL, tskIDLE_PRIORITY + 1, NULL);
     while (1)
     {
         vTaskDelay(pdMS_TO_TICKS(1000)); // Retraso para no saturar la CPU
