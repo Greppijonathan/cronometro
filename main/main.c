@@ -30,7 +30,7 @@ nuevamente la tecla TEC3 se recupera el valor actual de la cuenta en vivo.
 
 // Pines conectados a pulsadores
 #define TEC1 GPIO_NUM_4
-// #define TEC2 GPIO_NUM_4
+#define TEC2 GPIO_NUM_6
 
 // Estructura para el manejo de los dígitos del cronómetro
 struct digitos_cronometro
@@ -47,7 +47,7 @@ SemaphoreHandle_t semaforo;
 
 // Variable global para pausar o reanudar cronómetro
 volatile bool pausaCronometro = false;
-// Variable global para pausar o reanaudar cuenta
+// Variable global para reiniciar cuenta
 volatile bool reiniciarCuenta = false;
 
 void ControlTiempo(void *parametros)
@@ -76,23 +76,75 @@ void ControlTiempo(void *parametros)
                 xSemaphoreGive(semaforo); // Liberar el recurso
             }
 
-            gpio_set_level(RGB_VERDE, estadoLed);
+            gpio_set_level(RGB_VERDE, estadoLed); // LED verde parpadeando mientras funciona
             estadoLed = !estadoLed;
-            gpio_set_level(RGB_AZUL, 0);
-            gpio_set_level(RGB_ROJO, 0);
+            gpio_set_level(RGB_AZUL, 0); // LED azul apagado
+            gpio_set_level(RGB_ROJO, 0); // LED rojo apagado
         }
-        // Parpadeo LED azul mientras está en funcionamiento
-        if (pausaCronometro)
+        else // Si el cronómetro está en pausa
         {
-            gpio_set_level(RGB_AZUL, estadoLed);
-            estadoLed = !estadoLed;
-            gpio_set_level(RGB_VERDE, 0);
-            gpio_set_level(RGB_ROJO, 0);
+            if (reiniciarCuenta) // Reiniciar la cuenta solo si está en pausa y TEC2 fue presionado
+            {
+                if (xSemaphoreTake(semaforo, portMAX_DELAY)) // Acceso al recurso para reinicio
+                {
+                    // Reiniciar los valores del cronómetro
+                    digitosActuales_t->unidades_segundos = 0;
+                    digitosActuales_t->decenas_segundos = 0;
+                    digitosActuales_t->unidades_minutos = 0;
+                    digitosActuales_t->decenas_minutos = 0;
+                    xSemaphoreGive(semaforo); // Liberar el recurso
+                }
+
+                // Indicar reinicio con LED rojo
+                gpio_set_level(RGB_ROJO, 1);
+                vTaskDelay(pdMS_TO_TICKS(500));
+                gpio_set_level(RGB_ROJO, 0);
+
+                reiniciarCuenta = false; // Resetear la bandera de reinicio
+            }
+            else // Si está en pausa pero no se reinició
+            {
+                // LED azul parpadeando mientras está pausado
+                gpio_set_level(RGB_AZUL, estadoLed);
+                estadoLed = !estadoLed;
+                gpio_set_level(RGB_VERDE, 0); // LED verde apagado
+                gpio_set_level(RGB_ROJO, 0);  // LED rojo apagado
+            }
         }
-        vTaskDelay(pdMS_TO_TICKS(1000));
+
+        vTaskDelay(pdMS_TO_TICKS(1000)); // Espera de 1 segundo entre iteraciones
     }
 }
 
+void EscanearPulsadores(void *parametros)
+{
+    bool estadoAnteriorPulsadorTEC1 = true; // Estado anterior del pulsador TEC1
+    bool estadoAnteriorPulsadorTEC2 = true; // Estado anterior del pulsador TEC2
+
+    while (1)
+    {
+        // Escaneo del pulsador TEC1
+        bool estadoActualTEC1 = gpio_get_level(TEC1);        // Leer el estado actual de TEC1
+        if (!estadoActualTEC1 && estadoAnteriorPulsadorTEC1) // Detectar flanco de bajada
+        {
+            pausaCronometro = !pausaCronometro; // Alternar pausa del cronómetro
+        }
+        estadoAnteriorPulsadorTEC1 = estadoActualTEC1; // Actualizar el estado anterior de TEC1
+
+        // Escaneo del pulsador TEC2
+        bool estadoActualTEC2 = gpio_get_level(TEC2);        // Leer el estado actual de TEC2
+        if (!estadoActualTEC2 && estadoAnteriorPulsadorTEC2) // Detectar flanco de bajada
+        {
+            if (pausaCronometro) // Activar reinicio solo si el cronómetro está en pausa
+            {
+                reiniciarCuenta = true;
+            }
+        }
+        estadoAnteriorPulsadorTEC2 = estadoActualTEC2; // Actualizar el estado anterior de TEC2
+
+        vTaskDelay(pdMS_TO_TICKS(50)); // Retardo para debounce
+    }
+}
 void ActualizarPantalla(void *parametros)
 {
     // Se inicializa la pantalla TFT
@@ -144,34 +196,6 @@ void ActualizarPantalla(void *parametros)
     }
 }
 
-// Tarea para controlar el pulsador
-void EscanearPulsadores(void *parametros)
-{
-    bool estadoAnteriorPulsadorTEC1 = true; // Estado anterior del pulsador TEC1
-    bool estadoAnteriorPulsadorTEC2 = true; // Estado anterior del pulsador TEC2
-    while (1)
-    {
-        // Escaneo del pulsador TEC1
-        bool estadoActualTEC1 = gpio_get_level(TEC1);        // Leer el estado actual de TEC1
-        if (!estadoActualTEC1 && estadoAnteriorPulsadorTEC1) // Detecta flanco de bajada
-        {
-            pausaCronometro = !pausaCronometro; // Alternar pausa del cronómetro
-        }
-        estadoAnteriorPulsadorTEC1 = estadoActualTEC1; // Actualizar el estado anterior para TEC1
-
-        // Escaneo del pulsador TEC2
-        /*       bool estadoActualTEC2 = gpio_get_level(TEC2);        // Leer el estado actual de TEC2
-               if (!estadoActualTEC2 && estadoAnteriorPulsadorTEC2) // Detecta flanco de bajada
-               {
-                   reiniciarCuenta = !reiniciarCuenta; // Alternar reinicio de cuenta
-               }
-               estadoAnteriorPulsadorTEC2 = estadoActualTEC2; // Actualizar el estado anterior para TEC2
-
-               // Retraso para debounce*/
-        vTaskDelay(pdMS_TO_TICKS(50));
-    }
-}
-
 void app_main(void)
 {
     // Se inicializan los dígitos del cronómetro
@@ -193,16 +217,16 @@ void app_main(void)
     gpio_set_direction(TEC1, GPIO_MODE_INPUT);
     gpio_set_pull_mode(TEC1, GPIO_PULLUP_ONLY); // Resistencia de pull-up
 
-    //   gpio_set_direction(TEC2, GPIO_MODE_INPUT);
-    //   gpio_set_pull_mode(TEC2, GPIO_PULLUP_ONLY); // Resistencia de pull-up
+    gpio_set_direction(TEC2, GPIO_MODE_INPUT);
+    gpio_set_pull_mode(TEC2, GPIO_PULLUP_ONLY); // Resistencia de pull-up
 
     // Crear el semáforo
     semaforo = xSemaphoreCreateMutex();
 
     // Crear las tareas
     xTaskCreate(ControlTiempo, "ControlTiempo", 2048, NULL, tskIDLE_PRIORITY + 1, NULL);
+    xTaskCreate(EscanearPulsadores, "EscanearPulsadores", 1024, NULL, tskIDLE_PRIORITY + 1, NULL);
     xTaskCreate(ActualizarPantalla, "ActualizarPantalla", 4096, NULL, tskIDLE_PRIORITY + 2, NULL);
-    xTaskCreate(EscanearPulsadores, "LecturaPulsadores", 1024, NULL, tskIDLE_PRIORITY + 1, NULL);
 
     while (1)
     {
