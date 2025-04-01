@@ -29,8 +29,8 @@ nuevamente la tecla TEC3 se recupera el valor actual de la cuenta en vivo.
 #define RGB_AZUL GPIO_NUM_10
 
 // Pines conectados a pulsadores
-#define TEC1 GPIO_NUM_6
-#define TEC2 GPIO_NUM_4
+#define TEC1 GPIO_NUM_4
+// #define TEC2 GPIO_NUM_4
 
 // Estructura para el manejo de los dígitos del cronómetro
 struct digitos_cronometro
@@ -193,8 +193,8 @@ void app_main(void)
     gpio_set_direction(TEC1, GPIO_MODE_INPUT);
     gpio_set_pull_mode(TEC1, GPIO_PULLUP_ONLY); // Resistencia de pull-up
 
-    gpio_set_direction(TEC2, GPIO_MODE_INPUT);
-    gpio_set_pull_mode(TEC2, GPIO_PULLUP_ONLY); // Resistencia de pull-up
+    //   gpio_set_direction(TEC2, GPIO_MODE_INPUT);
+    //   gpio_set_pull_mode(TEC2, GPIO_PULLUP_ONLY); // Resistencia de pull-up
 
     // Crear el semáforo
     semaforo = xSemaphoreCreateMutex();
