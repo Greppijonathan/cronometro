@@ -18,10 +18,10 @@
 9294	9539	7648105538074374	esp-idf/esp_system/CMakeFiles/__idf_esp_system.dir/port/soc/esp32c6/reset_reason.c.obj	f7fcc1813b68ea4a
 15681	16080	7648105603285144	esp-idf/freertos/CMakeFiles/__idf_freertos.dir/port_common.c.obj	3515a0e0ff5a629f
 15391	15713	7648105599507371	esp-idf/esp_hw_support/CMakeFiles/__idf_esp_hw_support.dir/port/esp32c6/ocode_init.c.obj	5d98beaad9d06820
-397	493	7651725033840368	esp-idf/esp_app_format/libesp_app_format.a	4feb4f777085d90d
+1002	1252	7651778418150177	esp-idf/esp_app_format/libesp_app_format.a	4feb4f777085d90d
 55067	55410	7648105996473707	esp-idf/fatfs/CMakeFiles/__idf_fatfs.dir/port/freertos/ffsystem.c.obj	62401a14ac76533e
 110	198	7648105444703304	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/esp-idf/esp_system/ld/sections.ld.in	f435b2f6762f1999
-9698	9794	0	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/esp-idf/esptool_py/CMakeFiles/app_check_size	fbcab58a4dd1a6a5
+25314	25535	0	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/esp-idf/esptool_py/CMakeFiles/app_check_size	fbcab58a4dd1a6a5
 100	189	7648105444604110	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/esp-idf/esp_system/ld/memory.ld	b35cfaa0ae1986b5
 39439	40328	7648105845713481	esp-idf/esp_wifi/CMakeFiles/__idf_esp_wifi.dir/esp32c6/esp_adapter.c.obj	8f52a76e2a8685bf
 3500	3696	7648105479547436	esp-idf/mbedtls/mbedtls/library/CMakeFiles/mbedcrypto.dir/version.c.obj	5a58affea39d5d08
@@ -107,7 +107,7 @@
 886	1367	7648105456171581	esp-idf/mbedtls/mbedtls/library/CMakeFiles/mbedcrypto.dir/cipher.c.obj	c9690d1566dee52a
 2031	2589	7648105468515982	esp-idf/mbedtls/mbedtls/library/CMakeFiles/mbedcrypto.dir/oid.c.obj	ffa64a9b605f0399
 1736	2204	7648105464479572	esp-idf/mbedtls/mbedtls/library/CMakeFiles/mbedcrypto.dir/md.c.obj	396da95c37a01c60
-127	396	7651725032837927	esp-idf/esp_app_format/CMakeFiles/__idf_esp_app_format.dir/esp_app_desc.c.obj	2628b9e4bdaf2cba
+311	1000	7651778415571483	esp-idf/esp_app_format/CMakeFiles/__idf_esp_app_format.dir/esp_app_desc.c.obj	7a700d651a7719ae
 1260	1541	7648105458106761	esp-idf/mbedtls/mbedtls/library/CMakeFiles/mbedcrypto.dir/ecjpake.c.obj	285f1aaeff50c8d9
 55948	57017	7648106012141380	esp-idf/json/CMakeFiles/__idf_json.dir/cJSON/cJSON.c.obj	491243c54c141d5f
 9519	9787	7648105540374431	esp-idf/esp_rom/CMakeFiles/__idf_esp_rom.dir/patches/esp_rom_efuse.c.obj	fb705ba9cfdffe3e
@@ -223,7 +223,7 @@
 3194	4015	7648105482568743	esp-idf/mbedtls/mbedtls/library/CMakeFiles/mbedcrypto.dir/rsa.c.obj	6cafb25703324f14
 12938	13657	7648105578959538	esp-idf/esp_hw_support/CMakeFiles/__idf_esp_hw_support.dir/intr_alloc.c.obj	799ee97df23a4c54
 3690	4051	7648105483045444	esp-idf/mbedtls/mbedtls/library/CMakeFiles/mbedcrypto.dir/319b8f6c02d3f179aa1c3a1621e31225/components/mbedtls/port/crypto_shared_gdma/esp_crypto_shared_gdma.c.obj	48e4f6dbad10588a
-8789	9377	7651732154342770	cronometro.elf	4378170c758677f7
+23121	24563	7651794020109637	cronometro.elf	4378170c758677f7
 51574	51929	7648105961842609	esp-idf/console/CMakeFiles/__idf_console.dir/argtable3/arg_dbl.c.obj	41057cf56dc80c5a
 5711	6399	7648105505908164	esp-idf/app_update/CMakeFiles/__idf_app_update.dir/esp_ota_ops.c.obj	e93e29625b8c46df
 9788	10102	7648105543615790	esp-idf/hal/CMakeFiles/__idf_hal.dir/efuse_hal.c.obj	3e21903f1d5da10e
@@ -244,7 +244,7 @@
 44874	44982	7648105892546627	esp-idf/esp_driver_i2c/libesp_driver_i2c.a	a32303c7504cf0d6
 37071	37708	7648105819803844	esp-idf/wpa_supplicant/CMakeFiles/__idf_wpa_supplicant.dir/src/utils/json.c.obj	6d5ebb99126e637a
 36281	37223	7648105814634401	esp-idf/wpa_supplicant/CMakeFiles/__idf_wpa_supplicant.dir/src/eap_peer/eap_fast.c.obj	b5fb5fb097042906
-132	327	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.elf	96cfe7bd32c41e25
+311	738	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.elf	96cfe7bd32c41e25
 4088	4406	7648105486435304	esp-idf/mbedtls/mbedtls/library/CMakeFiles/mbedcrypto.dir/C_/Espressif/frameworks/esp-idf-v5.3.1/components/mbedtls/port/sha/dma/esp_sha1.c.obj	c42e2c88a4dab44d
 14546	14953	7648105592084326	esp-idf/esp_hw_support/CMakeFiles/__idf_esp_hw_support.dir/esp_etm.c.obj	dd0a94782a62efe5
 55570	55955	7648106001908784	esp-idf/wear_levelling/libwear_levelling.a	960b29d9a05c1ba
@@ -262,7 +262,7 @@
 4500	4797	7648105490642580	esp-idf/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509write.c.obj	6dbdcf5a0b5384b6
 4338	4809	7648105490754819	esp-idf/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/pkcs7.c.obj	ffea3612ff15d1a8
 40857	41203	7648105854226587	esp-idf/esp_gdbstub/CMakeFiles/__idf_esp_gdbstub.dir/src/port/riscv/gdbstub_riscv.c.obj	5105179691631d89
-132	327	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader-prefix/src/bootloader-stamp/bootloader-build	96cfe7bd32c41e25
+311	738	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader-prefix/src/bootloader-stamp/bootloader-build	96cfe7bd32c41e25
 5944	6327	7648105505951342	esp-idf/efuse/CMakeFiles/__idf_efuse.dir/esp32c6/esp_efuse_rtc_calib.c.obj	9aa0bd6bc6612754
 25971	26867	7648105711356339	esp-idf/esp_driver_rmt/CMakeFiles/__idf_esp_driver_rmt.dir/src/rmt_tx.c.obj	6a3c2fb5977fd411
 4494	4987	7648105492513955	esp-idf/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509_csr.c.obj	8ea2d3e720d15cd1
@@ -274,7 +274,7 @@
 4646	5037	7648105492899189	esp-idf/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509write_csr.c.obj	5e2c95567a6096ac
 37169	37811	7648105820745546	esp-idf/wpa_supplicant/CMakeFiles/__idf_wpa_supplicant.dir/src/wps/wps.c.obj	2b871785c6c56a4b
 4583	5111	7648105493308476	esp-idf/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509write_crt.c.obj	e81d1330e3f52cb1
-9378	9697	7651732158036033	.bin_timestamp	41f3851ad9352a46
+24564	25313	7651794028148682	.bin_timestamp	41f3851ad9352a46
 4810	5172	7648105494439228	esp-idf/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_ciphersuites.c.obj	f32344549ef7c1f7
 29347	29884	7648105741269778	esp-idf/lwip/CMakeFiles/__idf_lwip.dir/lwip/src/api/tcpip.c.obj	7cf0bc0d0b463499
 8152	8405	7648105526667027	esp-idf/spi_flash/CMakeFiles/__idf_spi_flash.dir/spi_flash_os_func_noos.c.obj	b145945bb41b57e8
@@ -295,7 +295,7 @@
 9269	10150	7648105544068585	esp-idf/esp_system/CMakeFiles/__idf_esp_system.dir/port/soc/esp32c6/clk.c.obj	1cdfe82530b35a47
 17040	17435	7648105617028958	esp-idf/pthread/CMakeFiles/__idf_pthread.dir/pthread_rwlock.c.obj	cbcea618dba35a89
 4966	5443	7648105496891192	esp-idf/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_client.c.obj	55d9bfebc696523a
-132	327	7648105628150091	bootloader-prefix/src/bootloader-stamp/bootloader-build	96cfe7bd32c41e25
+311	738	7648105628150091	bootloader-prefix/src/bootloader-stamp/bootloader-build	96cfe7bd32c41e25
 32386	32831	7648105770980860	esp-idf/lwip/CMakeFiles/__idf_lwip.dir/lwip/src/netif/ppp/ipv6cp.c.obj	c91508c7dce640b3
 5235	5460	7648105497257858	esp-idf/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_tls13_server.c.obj	c4b5742881488d29
 18498	21682	7648105659504584	esp-idf/nvs_flash/CMakeFiles/__idf_nvs_flash.dir/src/nvs_page.cpp.obj	25986b54f2a6c683
@@ -507,12 +507,12 @@
 10448	10803	7648105550581474	esp-idf/hal/CMakeFiles/__idf_hal.dir/ledc_hal_iram.c.obj	cc5f46cbf5fbf780
 10563	10821	7648105550917698	esp-idf/hal/CMakeFiles/__idf_hal.dir/twai_hal.c.obj	a3e9df46b730d908
 10699	10934	7648105551895017	esp-idf/hal/CMakeFiles/__idf_hal.dir/gdma_hal_top.c.obj	8d1dfa65346a8379
-9698	9794	0	esp-idf/esptool_py/CMakeFiles/app_check_size	fbcab58a4dd1a6a5
+25314	25535	0	esp-idf/esptool_py/CMakeFiles/app_check_size	fbcab58a4dd1a6a5
 10667	10956	7648105552222937	esp-idf/hal/CMakeFiles/__idf_hal.dir/twai_hal_iram.c.obj	7558fca3d60d87e6
 10803	11018	7648105552908498	esp-idf/hal/CMakeFiles/__idf_hal.dir/etm_hal.c.obj	f5d169486976c1e6
 21461	24415	7648105686117000	esp-idf/nvs_flash/CMakeFiles/__idf_nvs_flash.dir/src/nvs_types.cpp.obj	a75c5c9224b3dd7f
 10797	11030	7648105552537048	esp-idf/hal/CMakeFiles/__idf_hal.dir/sdm_hal.c.obj	8952dd811ab892d
-132	327	7648105628150091	bootloader/bootloader.elf	96cfe7bd32c41e25
+311	738	7648105628150091	bootloader/bootloader.elf	96cfe7bd32c41e25
 10821	11169	7648105554268024	esp-idf/hal/CMakeFiles/__idf_hal.dir/adc_hal_common.c.obj	8ee4a587f11b9fd2
 50164	50588	7648105948572991	esp-idf/esp_driver_gpio/CMakeFiles/__idf_esp_driver_gpio.dir/src/gpio_pin_glitch_filter.c.obj	535b09be15dcbe6e
 11169	11369	7648105556145296	esp-idf/hal/CMakeFiles/__idf_hal.dir/brownout_hal.c.obj	62b204cadb69178f
@@ -545,7 +545,7 @@
 11855	12196	7648105564680466	esp-idf/heap/CMakeFiles/__idf_heap.dir/port/memory_layout_utils.c.obj	9e24ab7560798a72
 15435	15680	7648105599364431	esp-idf/esp_hw_support/CMakeFiles/__idf_esp_hw_support.dir/port/esp32c6/esp_crypto_lock.c.obj	d8e3e56b40e4e7e2
 39432	39879	7648105841466998	esp-idf/esp_wifi/CMakeFiles/__idf_esp_wifi.dir/src/wifi_default_ap.c.obj	836695e57ba42fc3
-469	587	7651732066925061	esp-idf/main/libmain.a	bb6baa8ed9156a65
+1742	1999	7651793677375902	esp-idf/main/libmain.a	bb6baa8ed9156a65
 11780	12219	7648105564805612	esp-idf/heap/CMakeFiles/__idf_heap.dir/heap_caps_init.c.obj	2922ac4509e249eb
 12120	12339	7648105566033959	esp-idf/soc/CMakeFiles/__idf_soc.dir/esp32c6/interrupts.c.obj	bf68f5a7793e5d04
 43186	43271	7648105875440823	esp-idf/http_parser/libhttp_parser.a	eaf442eeb8fccbfe
@@ -793,11 +793,11 @@
 42993	43096	7648105873629863	esp-idf/esp_adc/libesp_adc.a	37011d2a93632d2a
 32408	32876	7648105771313231	esp-idf/lwip/CMakeFiles/__idf_lwip.dir/lwip/src/netif/ppp/lcp.c.obj	7b33be97032c7653
 32663	33015	7648105772749553	esp-idf/lwip/CMakeFiles/__idf_lwip.dir/lwip/src/netif/ppp/ppp.c.obj	1245ea0a747f9dbb
-132	327	7648105628150091	bootloader/bootloader.bin	96cfe7bd32c41e25
-132	327	7648105628150091	bootloader/bootloader.map	96cfe7bd32c41e25
+311	738	7648105628150091	bootloader/bootloader.bin	96cfe7bd32c41e25
+311	738	7648105628150091	bootloader/bootloader.map	96cfe7bd32c41e25
 39188	39697	7648105839398214	esp-idf/esp_wifi/CMakeFiles/__idf_esp_wifi.dir/src/mesh_event.c.obj	8e99c5164ec82891
-132	327	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.bin	96cfe7bd32c41e25
-132	327	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.map	96cfe7bd32c41e25
+311	738	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.bin	96cfe7bd32c41e25
+311	738	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.map	96cfe7bd32c41e25
 32832	33149	7648105774147116	esp-idf/lwip/CMakeFiles/__idf_lwip.dir/lwip/src/netif/ppp/pppol2tp.c.obj	8d152585656c7df
 39415	39961	7648105842007204	esp-idf/esp_wifi/CMakeFiles/__idf_esp_wifi.dir/src/wifi_netif.c.obj	c6a11a1bf54103ce
 32652	33155	7648105773729021	esp-idf/lwip/CMakeFiles/__idf_lwip.dir/lwip/src/netif/ppp/multilink.c.obj	32d2cba21720a6db
@@ -1021,88 +1021,55 @@
 57841	58037	7648106023074526	esp-idf/main/CMakeFiles/__idf_main.dir/digitos.c.obj	ce1303b567d1a6b5
 57638	58112	7648106023815007	esp-idf/wifi_provisioning/CMakeFiles/__idf_wifi_provisioning.dir/src/scheme_softap.c.obj	b7d33942b9686844
 57161	58142	7648106024126771	esp-idf/wifi_provisioning/CMakeFiles/__idf_wifi_provisioning.dir/src/manager.c.obj	38d34c90e24da19
-141	468	7651732065817590	esp-idf/main/CMakeFiles/__idf_main.dir/main.c.obj	b347390f9199d173
-57815	58354	7648106026235871	esp-idf/main/CMakeFiles/__idf_main.dir/ili9341.c.obj	f1b24cacaa3d4376
-587	8789	7651732148539471	esp-idf/esp_system/ld/sections.ld	52d1f62e3e68287c
-587	8789	7651732148539471	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/esp-idf/esp_system/ld/sections.ld	52d1f62e3e68287c
-9378	9697	7651732158036033	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/.bin_timestamp	41f3851ad9352a46
-72	7986	7651778404267101	build.ninja	3cf1da90710cbba1
-293	21909	7651778404267101	build.ninja	3cf1da90710cbba1
-295	781	7648105628150091	bootloader-prefix/src/bootloader-stamp/bootloader-build	96cfe7bd32c41e25
-295	781	7648105628150091	bootloader/bootloader.elf	96cfe7bd32c41e25
-295	781	7648105628150091	bootloader/bootloader.bin	96cfe7bd32c41e25
-295	781	7648105628150091	bootloader/bootloader.map	96cfe7bd32c41e25
-295	781	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader-prefix/src/bootloader-stamp/bootloader-build	96cfe7bd32c41e25
-295	781	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.elf	96cfe7bd32c41e25
-295	781	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.bin	96cfe7bd32c41e25
-295	781	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.map	96cfe7bd32c41e25
-311	1000	7651778415571483	esp-idf/esp_app_format/CMakeFiles/__idf_esp_app_format.dir/esp_app_desc.c.obj	7a700d651a7719ae
-1002	1252	7651778418150177	esp-idf/esp_app_format/libesp_app_format.a	4feb4f777085d90d
-1253	1857	7651778424174474	esp-idf/main/CMakeFiles/__idf_main.dir/main.c.obj	b347390f9199d173
-1858	2046	7651778426086431	esp-idf/main/libmain.a	bb6baa8ed9156a65
-2047	27654	7651778681163505	esp-idf/esp_system/ld/sections.ld	52d1f62e3e68287c
-2047	27654	7651778681163505	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/esp-idf/esp_system/ld/sections.ld	52d1f62e3e68287c
-27654	29163	7651778696901258	cronometro.elf	4378170c758677f7
-29164	29992	7651778705499976	.bin_timestamp	41f3851ad9352a46
-29164	29992	7651778705499976	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/.bin_timestamp	41f3851ad9352a46
-29993	30243	0	esp-idf/esptool_py/CMakeFiles/app_check_size	fbcab58a4dd1a6a5
-29993	30243	0	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/esp-idf/esptool_py/CMakeFiles/app_check_size	fbcab58a4dd1a6a5
-318	773	7648105628150091	bootloader-prefix/src/bootloader-stamp/bootloader-build	96cfe7bd32c41e25
-318	773	7648105628150091	bootloader/bootloader.elf	96cfe7bd32c41e25
-318	773	7648105628150091	bootloader/bootloader.bin	96cfe7bd32c41e25
-318	773	7648105628150091	bootloader/bootloader.map	96cfe7bd32c41e25
-318	773	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader-prefix/src/bootloader-stamp/bootloader-build	96cfe7bd32c41e25
-318	773	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.elf	96cfe7bd32c41e25
-318	773	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.bin	96cfe7bd32c41e25
-318	773	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.map	96cfe7bd32c41e25
-336	1170	7651779500868010	esp-idf/main/CMakeFiles/__idf_main.dir/main.c.obj	b347390f9199d173
-1172	1394	7651779503070284	esp-idf/main/libmain.a	bb6baa8ed9156a65
-1394	24349	7651779731932052	esp-idf/esp_system/ld/sections.ld	52d1f62e3e68287c
-1394	24349	7651779731932052	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/esp-idf/esp_system/ld/sections.ld	52d1f62e3e68287c
-24350	25649	7651779744882480	cronometro.elf	4378170c758677f7
-25650	26340	7651779752550328	.bin_timestamp	41f3851ad9352a46
-25650	26340	7651779752550328	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/.bin_timestamp	41f3851ad9352a46
-26340	26570	0	esp-idf/esptool_py/CMakeFiles/app_check_size	fbcab58a4dd1a6a5
-26340	26570	0	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/esp-idf/esptool_py/CMakeFiles/app_check_size	fbcab58a4dd1a6a5
-503	987	7648105628150091	bootloader-prefix/src/bootloader-stamp/bootloader-build	96cfe7bd32c41e25
-503	987	7648105628150091	bootloader/bootloader.elf	96cfe7bd32c41e25
-503	987	7648105628150091	bootloader/bootloader.bin	96cfe7bd32c41e25
-503	987	7648105628150091	bootloader/bootloader.map	96cfe7bd32c41e25
-503	987	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader-prefix/src/bootloader-stamp/bootloader-build	96cfe7bd32c41e25
-503	987	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.elf	96cfe7bd32c41e25
-503	987	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.bin	96cfe7bd32c41e25
-503	987	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.map	96cfe7bd32c41e25
-522	1362	7651787038545375	esp-idf/main/CMakeFiles/__idf_main.dir/main.c.obj	b347390f9199d173
-1365	1610	7651787041011916	esp-idf/main/libmain.a	bb6baa8ed9156a65
-1611	25177	7651787275817304	esp-idf/esp_system/ld/sections.ld	52d1f62e3e68287c
-1611	25177	7651787275817304	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/esp-idf/esp_system/ld/sections.ld	52d1f62e3e68287c
-25178	26742	7651787291279326	cronometro.elf	4378170c758677f7
-26743	27540	7651787300304200	.bin_timestamp	41f3851ad9352a46
-26743	27540	7651787300304200	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/.bin_timestamp	41f3851ad9352a46
-27541	27771	0	esp-idf/esptool_py/CMakeFiles/app_check_size	fbcab58a4dd1a6a5
-27541	27771	0	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/esp-idf/esptool_py/CMakeFiles/app_check_size	fbcab58a4dd1a6a5
-553	1115	7648105628150091	bootloader-prefix/src/bootloader-stamp/bootloader-build	96cfe7bd32c41e25
-553	1115	7648105628150091	bootloader/bootloader.elf	96cfe7bd32c41e25
-553	1115	7648105628150091	bootloader/bootloader.bin	96cfe7bd32c41e25
-553	1115	7648105628150091	bootloader/bootloader.map	96cfe7bd32c41e25
-553	1115	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader-prefix/src/bootloader-stamp/bootloader-build	96cfe7bd32c41e25
-553	1115	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.elf	96cfe7bd32c41e25
-553	1115	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.bin	96cfe7bd32c41e25
-553	1115	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.map	96cfe7bd32c41e25
 572	1740	7651793674733586	esp-idf/main/CMakeFiles/__idf_main.dir/main.c.obj	b347390f9199d173
-1742	1999	7651793677375902	esp-idf/main/libmain.a	bb6baa8ed9156a65
-311	738	7648105628150091	bootloader-prefix/src/bootloader-stamp/bootloader-build	96cfe7bd32c41e25
-311	738	7648105628150091	bootloader/bootloader.elf	96cfe7bd32c41e25
-311	738	7648105628150091	bootloader/bootloader.bin	96cfe7bd32c41e25
-311	738	7648105628150091	bootloader/bootloader.map	96cfe7bd32c41e25
-311	738	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader-prefix/src/bootloader-stamp/bootloader-build	96cfe7bd32c41e25
-311	738	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.elf	96cfe7bd32c41e25
-311	738	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.bin	96cfe7bd32c41e25
-311	738	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.map	96cfe7bd32c41e25
+57815	58354	7648106026235871	esp-idf/main/CMakeFiles/__idf_main.dir/ili9341.c.obj	f1b24cacaa3d4376
 329	23120	7651794005470737	esp-idf/esp_system/ld/sections.ld	52d1f62e3e68287c
 329	23120	7651794005470737	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/esp-idf/esp_system/ld/sections.ld	52d1f62e3e68287c
-23121	24563	7651794020109637	cronometro.elf	4378170c758677f7
-24564	25313	7651794028148682	.bin_timestamp	41f3851ad9352a46
 24564	25313	7651794028148682	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/.bin_timestamp	41f3851ad9352a46
-25314	25535	0	esp-idf/esptool_py/CMakeFiles/app_check_size	fbcab58a4dd1a6a5
-25314	25535	0	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/esp-idf/esptool_py/CMakeFiles/app_check_size	fbcab58a4dd1a6a5
+293	21909	7653323698319877	build.ninja	3cf1da90710cbba1
+187	439	7648105628150091	bootloader-prefix/src/bootloader-stamp/bootloader-build	96cfe7bd32c41e25
+187	439	7648105628150091	bootloader/bootloader.elf	96cfe7bd32c41e25
+187	439	7648105628150091	bootloader/bootloader.bin	96cfe7bd32c41e25
+187	439	7648105628150091	bootloader/bootloader.map	96cfe7bd32c41e25
+187	439	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader-prefix/src/bootloader-stamp/bootloader-build	96cfe7bd32c41e25
+187	439	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.elf	96cfe7bd32c41e25
+187	439	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.bin	96cfe7bd32c41e25
+187	439	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.map	96cfe7bd32c41e25
+197	633	7653346069122681	esp-idf/esp_app_format/CMakeFiles/__idf_esp_app_format.dir/esp_app_desc.c.obj	d718f124dd9c0e0
+634	744	7653346070176245	esp-idf/esp_app_format/libesp_app_format.a	4feb4f777085d90d
+745	1021	7653346072926042	esp-idf/main/CMakeFiles/__idf_main.dir/main.c.obj	b347390f9199d173
+1021	1117	7653346073949049	esp-idf/main/libmain.a	bb6baa8ed9156a65
+1117	10345	7653346165730437	esp-idf/esp_system/ld/sections.ld	52d1f62e3e68287c
+1117	10345	7653346165730437	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/esp-idf/esp_system/ld/sections.ld	52d1f62e3e68287c
+10345	11139	7653346174029045	cronometro.elf	4378170c758677f7
+11140	11494	7653346177711648	.bin_timestamp	41f3851ad9352a46
+11140	11494	7653346177711648	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/.bin_timestamp	41f3851ad9352a46
+11494	11605	0	esp-idf/esptool_py/CMakeFiles/app_check_size	fbcab58a4dd1a6a5
+11494	11605	0	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/esp-idf/esptool_py/CMakeFiles/app_check_size	fbcab58a4dd1a6a5
+534	651	0	esp-idf/esptool_py/CMakeFiles/app_check_size	fbcab58a4dd1a6a5
+534	651	0	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/esp-idf/esptool_py/CMakeFiles/app_check_size	fbcab58a4dd1a6a5
+524	754	7648105628150091	bootloader-prefix/src/bootloader-stamp/bootloader-build	96cfe7bd32c41e25
+524	754	7648105628150091	bootloader/bootloader.elf	96cfe7bd32c41e25
+524	754	7648105628150091	bootloader/bootloader.bin	96cfe7bd32c41e25
+524	754	7648105628150091	bootloader/bootloader.map	96cfe7bd32c41e25
+524	754	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader-prefix/src/bootloader-stamp/bootloader-build	96cfe7bd32c41e25
+524	754	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.elf	96cfe7bd32c41e25
+524	754	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.bin	96cfe7bd32c41e25
+524	754	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.map	96cfe7bd32c41e25
+211	472	7648105628150091	bootloader-prefix/src/bootloader-stamp/bootloader-build	96cfe7bd32c41e25
+211	472	7648105628150091	bootloader/bootloader.elf	96cfe7bd32c41e25
+211	472	7648105628150091	bootloader/bootloader.bin	96cfe7bd32c41e25
+211	472	7648105628150091	bootloader/bootloader.map	96cfe7bd32c41e25
+211	472	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader-prefix/src/bootloader-stamp/bootloader-build	96cfe7bd32c41e25
+211	472	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.elf	96cfe7bd32c41e25
+211	472	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.bin	96cfe7bd32c41e25
+211	472	7648105628150091	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/bootloader/bootloader.map	96cfe7bd32c41e25
+220	816	7653351035584079	esp-idf/main/CMakeFiles/__idf_main.dir/main.c.obj	b347390f9199d173
+817	946	7653351036885870	esp-idf/main/libmain.a	bb6baa8ed9156a65
+946	10560	7653351132125084	esp-idf/esp_system/ld/sections.ld	52d1f62e3e68287c
+946	10560	7653351132125084	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/esp-idf/esp_system/ld/sections.ld	52d1f62e3e68287c
+10560	11380	7653351140693846	cronometro.elf	4378170c758677f7
+11381	11718	7653351144599233	.bin_timestamp	41f3851ad9352a46
+11381	11718	7653351144599233	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/.bin_timestamp	41f3851ad9352a46
+11719	11826	0	esp-idf/esptool_py/CMakeFiles/app_check_size	fbcab58a4dd1a6a5
+11719	11826	0	C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build/esp-idf/esptool_py/CMakeFiles/app_check_size	fbcab58a4dd1a6a5

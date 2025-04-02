@@ -1,11 +1,8 @@
+
 /*
-Requisitos mínimos: Implementar un cronómetro utilizando más de una tarea de FreeRTOS. El
-cronómetro debe iniciar y detener la cuenta al presionar la tecla TEC1. Si está detenido, al
-presionar la tecla TEC2 debe volver a cero. Mientras la cuenta está activa el red RGB debe
-parpadear en verde y cuando está detenida debe permanecer en rojo. Mientras la cuenta está
-activa se debe congelar el valor parcial con la tecla TEC3, es decir que se mantiene el valor que
-se muestra en pantalla fijo pero la cuenta continúa activa. En este estado, al presionar
-nuevamente la tecla TEC3 se recupera el valor actual de la cuenta en vivo.
+Implementar un cronómetro utilizando más de una tarea de FreeRTOS que muestre en pantalla el valor de la cuenta actual con una resolución de décimas de segundo.
+El cronómetro debe iniciar y detener la cuenta al presionar un pulsador conectado a la placa. Si está detenido, al presionar un segundo contador debe volver a cero.
+Mientras la cuenta está activa un led RGB debe parpadear en verde y cuando está detenida debe permanecer en rojo.
 */
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -30,7 +27,6 @@ nuevamente la tecla TEC3 se recupera el valor actual de la cuenta en vivo.
 // Pines conectados a pulsadores
 #define TEC1 GPIO_NUM_4
 #define TEC2 GPIO_NUM_6
-#define TEC3 GPIO_NUM_2
 
 // Estructura para el manejo de los dígitos del cronómetro
 struct digitos_cronometro
@@ -48,7 +44,6 @@ SemaphoreHandle_t semaforo;
 // Variables globales para el control del tiempo
 volatile bool pausaCronometro = false;
 volatile bool reiniciarCuenta = false;
-volatile bool congelarCuenta = false;
 
 void ControlTiempo(void *parametros)
 {
@@ -120,7 +115,6 @@ void EscanearPulsadores(void *parametros)
 {
     bool estadoAnteriorPulsadorTEC1 = true; // Estado anterior del pulsador TEC1
     bool estadoAnteriorPulsadorTEC2 = true; // Estado anterior del pulsador TEC2
-    bool estadoAnteriorPulsadorTEC3 = true; // Estado anterior del pulsador TEC3
 
     while (1)
     {
@@ -142,14 +136,6 @@ void EscanearPulsadores(void *parametros)
             }
         }
         estadoAnteriorPulsadorTEC2 = estadoActualTEC2; // Actualizar el estado anterior de TEC2
-
-        // Escaneo del pulsador TEC3
-        bool estadoActualTEC3 = gpio_get_level(TEC3);        // Leer el estado actual de TEC3
-        if (!estadoActualTEC3 && estadoAnteriorPulsadorTEC3) // Detectar flanco de bajada
-        {
-            congelarCuenta = !congelarCuenta; // Alternar congelamiento del cronómetro
-        }
-        estadoAnteriorPulsadorTEC3 = estadoActualTEC3; // Actualizar el estado anterior de TEC3
 
         vTaskDelay(pdMS_TO_TICKS(50)); // Retardo para debounce
     }
@@ -176,30 +162,27 @@ void ActualizarPantalla(void *parametros)
 
     while (1)
     {
-        if (xSemaphoreTake(semaforo, portMAX_DELAY)) // Acceso al recurso compartido, la estructura de los digitos en este caso
+        if (xSemaphoreTake(semaforo, portMAX_DELAY)) // Acceso al recurso compartido
         {
-            if (!congelarCuenta) // Si no está congelado, actualiza la pantalla
+            if (digitosActuales_t->decenas_minutos != digitosPrevios.decenasAnteriorMinutos)
             {
-                if (digitosActuales_t->decenas_minutos != digitosPrevios.decenasAnteriorMinutos)
-                {
-                    DibujarDigito(horas, 0, digitosActuales_t->decenas_minutos);
-                    digitosPrevios.decenasAnteriorMinutos = digitosActuales_t->decenas_minutos;
-                }
-                if (digitosActuales_t->unidades_minutos != digitosPrevios.unidadesAnteriorMinutos)
-                {
-                    DibujarDigito(horas, 1, digitosActuales_t->unidades_minutos);
-                    digitosPrevios.unidadesAnteriorMinutos = digitosActuales_t->unidades_minutos;
-                }
-                if (digitosActuales_t->decenas_segundos != digitosPrevios.decenasAnteriorSegundos)
-                {
-                    DibujarDigito(minutos, 0, digitosActuales_t->decenas_segundos);
-                    digitosPrevios.decenasAnteriorSegundos = digitosActuales_t->decenas_segundos;
-                }
-                if (digitosActuales_t->unidades_segundos != digitosPrevios.unidadesAnteriorSegundos)
-                {
-                    DibujarDigito(minutos, 1, digitosActuales_t->unidades_segundos);
-                    digitosPrevios.unidadesAnteriorSegundos = digitosActuales_t->unidades_segundos;
-                }
+                DibujarDigito(horas, 0, digitosActuales_t->decenas_minutos);
+                digitosPrevios.decenasAnteriorMinutos = digitosActuales_t->decenas_minutos;
+            }
+            if (digitosActuales_t->unidades_minutos != digitosPrevios.unidadesAnteriorMinutos)
+            {
+                DibujarDigito(horas, 1, digitosActuales_t->unidades_minutos);
+                digitosPrevios.unidadesAnteriorMinutos = digitosActuales_t->unidades_minutos;
+            }
+            if (digitosActuales_t->decenas_segundos != digitosPrevios.decenasAnteriorSegundos)
+            {
+                DibujarDigito(minutos, 0, digitosActuales_t->decenas_segundos);
+                digitosPrevios.decenasAnteriorSegundos = digitosActuales_t->decenas_segundos;
+            }
+            if (digitosActuales_t->unidades_segundos != digitosPrevios.unidadesAnteriorSegundos)
+            {
+                DibujarDigito(minutos, 1, digitosActuales_t->unidades_segundos);
+                digitosPrevios.unidadesAnteriorSegundos = digitosActuales_t->unidades_segundos;
             }
             ILI9341DrawFilledCircle(160, 90, 5, DIGITO_ENCENDIDO);
             ILI9341DrawFilledCircle(160, 130, 5, DIGITO_ENCENDIDO);
@@ -233,9 +216,6 @@ void app_main(void)
 
     gpio_set_direction(TEC2, GPIO_MODE_INPUT);
     gpio_set_pull_mode(TEC2, GPIO_PULLUP_ONLY); // Resistencia de pull-up
-
-    gpio_set_direction(TEC3, GPIO_MODE_INPUT);
-    gpio_set_pull_mode(TEC3, GPIO_PULLUP_ONLY); // Resistencia de pull-up
 
     // Crear el semáforo
     semaforo = xSemaphoreCreateMutex();
