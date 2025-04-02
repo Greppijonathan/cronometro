@@ -42,18 +42,20 @@ volatile int estadoVerde = 0;
 // Declaración del semáforo
 SemaphoreHandle_t semaforo;
 
-// Variables globales para el control del tiempo
+// Variables globales para el control del cronómetro
 volatile bool pausaCronometro = false;
 volatile bool reiniciarCuenta = false;
 
 void ControlTiempo(void *parametros)
 {
+    TickType_t xLastWakeTime = xTaskGetTickCount(); // Inicialización
     bool estadoLed = false;
+
     while (1)
     {
         if (!pausaCronometro)
         {
-            if (xSemaphoreTake(semaforo, portMAX_DELAY)) // Acceso al recurso compartido, para este caso los digitos del cronometro
+            if (xSemaphoreTake(semaforo, portMAX_DELAY)) // Acceso al recurso compartido
             {
                 // Actualizar los dígitos del cronómetro
                 digitosActuales_t->unidades_segundos = (digitosActuales_t->unidades_segundos + 1) % 10;
@@ -81,35 +83,37 @@ void ControlTiempo(void *parametros)
         {
             if (reiniciarCuenta)
             {
-                if (xSemaphoreTake(semaforo, portMAX_DELAY)) // Acceso al recurso nuevamente, por lo tando se debe volver a trabajar con el MUTEX
+                if (xSemaphoreTake(semaforo, portMAX_DELAY)) // Acceso al recurso nuevamente
                 {
                     // Reiniciar los valores del cronómetro
                     digitosActuales_t->unidades_segundos = 0;
                     digitosActuales_t->decenas_segundos = 0;
                     digitosActuales_t->unidades_minutos = 0;
                     digitosActuales_t->decenas_minutos = 0;
-                    xSemaphoreGive(semaforo); // Se libera el recurso compartido
+                    xSemaphoreGive(semaforo); // Liberar el recurso compartido
                 }
 
                 reiniciarCuenta = false; // Se limpia la bandera de reinicio
             }
-            else // Si está en pausa pero no se reinició
+            else
             {
-                gpio_set_level(RGB_ROJO, estadoLed); // Parpadeo de led rojo para indicar que se encuentra en pausa
+                gpio_set_level(RGB_ROJO, estadoLed); // LED rojo parpadeando en pausa
                 estadoLed = !estadoLed;
                 gpio_set_level(RGB_VERDE, 0);
                 gpio_set_level(RGB_AZUL, 0);
             }
         }
 
-        vTaskDelay(pdMS_TO_TICKS(10));
+        vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(10)); // Precisión de 10 ms
     }
 }
 
 void EscanearPulsadores(void *parametros)
 {
+    TickType_t xLastWakeTime = xTaskGetTickCount(); // Inicialización
     bool estadoAnteriorPulsadorTEC1_Pausa = true;
     bool estadoAnteriorPulsadorTEC2_Reiniciar = true;
+
     while (1)
     {
         bool estadoActualTEC1_Pausa = gpio_get_level(TEC1_Pausa);
@@ -129,12 +133,13 @@ void EscanearPulsadores(void *parametros)
         }
         estadoAnteriorPulsadorTEC2_Reiniciar = estadoActualTEC2_Reiniciar;
 
-        vTaskDelay(pdMS_TO_TICKS(50)); // Manejo del rebote de pulsadores
+        vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(50)); // Precisión de 50 ms
     }
 }
 
 void ActualizarPantalla(void *parametros)
 {
+    TickType_t xLastWakeTime = xTaskGetTickCount(); // Inicialización
     ILI9341Init();
     ILI9341Rotate(ILI9341_Landscape_1);
 
@@ -147,9 +152,8 @@ void ActualizarPantalla(void *parametros)
         int unidadesAnteriorMinutos;
         int decenasAnteriorSegundos;
         int unidadesAnteriorSegundos;
-    } digitosPrevios = {-1, -1, -1, -1}; // Valores iniciales "invalidados", para no comparar con un valor existente antes
+    } digitosPrevios = {-1, -1, -1, -1}; // Valores iniciales inválidos
 
-    // Logica para detectar el cambio en alguno de los digitos y solo actualizar la pantalla en el que hay cambio
     while (1)
     {
         if (xSemaphoreTake(semaforo, portMAX_DELAY))
@@ -179,10 +183,9 @@ void ActualizarPantalla(void *parametros)
 
             xSemaphoreGive(semaforo); // Liberar el semáforo
         }
-        vTaskDelay(pdMS_TO_TICKS(50)); // Actualización de pantalla cada 1 ms
+        vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(100)); // Precisión de 100 ms
     }
 }
-
 void app_main(void)
 {
     // Se inicializan los dígitos del cronómetro
