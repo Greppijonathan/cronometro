@@ -1,7 +1,7 @@
 {
     "version":            "1.1",
     "project_name":       "cronometro",
-    "project_version":    "b551d18-dirty",
+    "project_version":    "4860490-dirty",
     "project_path":       "C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro",
     "idf_path":           "C:/Espressif/frameworks/esp-idf-v5.3.1",
     "build_dir":          "C:/Sistemas embebidos/Cursos/Sistemas operativos de tiempo real/cronometro/build",
