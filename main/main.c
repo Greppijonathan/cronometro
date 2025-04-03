@@ -40,7 +40,7 @@ struct digitos_cronometro
 
 volatile int estadoVerde = 0;
 // Declaración del semáforo
-SemaphoreHandle_t semaforo;
+SemaphoreHandle_t semaforoAccesoDigitos;
 
 // Variables globales para el control del cronómetro
 volatile bool pausaCronometro = false;
@@ -55,7 +55,7 @@ void ControlTiempo(void *parametros)
     {
         if (!pausaCronometro)
         {
-            if (xSemaphoreTake(semaforo, portMAX_DELAY)) // Acceso al recurso compartido
+            if (xSemaphoreTake(semaforoAccesoDigitos, portMAX_DELAY)) // Acceso al recurso compartido
             {
                 // Actualizar los dígitos del cronómetro
                 digitosActuales_t->unidades_segundos = (digitosActuales_t->unidades_segundos + 1) % 10;
@@ -71,7 +71,7 @@ void ControlTiempo(void *parametros)
                         }
                     }
                 }
-                xSemaphoreGive(semaforo); // Liberar el recurso compartido
+                xSemaphoreGive(semaforoAccesoDigitos); // Liberar el recurso compartido
             }
 
             gpio_set_level(RGB_VERDE, estadoLed); // LED verde parpadeando mientras funciona
@@ -83,14 +83,14 @@ void ControlTiempo(void *parametros)
         {
             if (reiniciarCuenta)
             {
-                if (xSemaphoreTake(semaforo, portMAX_DELAY)) // Acceso al recurso nuevamente
+                if (xSemaphoreTake(semaforoAccesoDigitos, portMAX_DELAY)) // Acceso al recurso nuevamente
                 {
                     // Reiniciar los valores del cronómetro
                     digitosActuales_t->unidades_segundos = 0;
                     digitosActuales_t->decenas_segundos = 0;
                     digitosActuales_t->unidades_minutos = 0;
                     digitosActuales_t->decenas_minutos = 0;
-                    xSemaphoreGive(semaforo); // Liberar el recurso compartido
+                    xSemaphoreGive(semaforoAccesoDigitos); // Liberar el recurso compartido
                 }
 
                 reiniciarCuenta = false; // Se limpia la bandera de reinicio
@@ -156,7 +156,7 @@ void ActualizarPantalla(void *parametros)
 
     while (1)
     {
-        if (xSemaphoreTake(semaforo, portMAX_DELAY))
+        if (xSemaphoreTake(semaforoAccesoDigitos, portMAX_DELAY))
         {
             if (digitosActuales_t->decenas_minutos != digitosPrevios.decenasAnteriorMinutos)
             {
@@ -181,7 +181,7 @@ void ActualizarPantalla(void *parametros)
             ILI9341DrawFilledCircle(160, 90, 5, DIGITO_ENCENDIDO);
             ILI9341DrawFilledCircle(160, 130, 5, DIGITO_ENCENDIDO);
 
-            xSemaphoreGive(semaforo); // Liberar el semáforo
+            xSemaphoreGive(semaforoAccesoDigitos); // Liberar el semáforo
         }
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(100)); // Precisión de 100 ms
     }
@@ -211,7 +211,7 @@ void app_main(void)
     gpio_set_pull_mode(TEC2_Reiniciar, GPIO_PULLUP_ONLY); // Resistencia de pull-up
 
     // Crear el semáforo
-    semaforo = xSemaphoreCreateMutex();
+    semaforoAccesoDigitos = xSemaphoreCreateMutex();
 
     // Crear las tareas
     xTaskCreate(ControlTiempo, "ControlTiempo", 2048, NULL, tskIDLE_PRIORITY + 1, NULL);
