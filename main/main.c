@@ -30,90 +30,87 @@ debe parpadear en verde y cuando está detenida debe permanecer en rojo.
 #define TEC2_Reiniciar GPIO_NUM_6
 
 // Estructura para el manejo de los dígitos del cronómetro
-struct digitos_cronometro
+struct digitosCronometro
 {
-    int unidades_segundos;
-    int decenas_segundos;
-    int unidades_minutos;
-    int decenas_minutos;
+    int unidadesSegundos;
+    int decenasSegundos;
+    int unidadesMinutos;
+    int decenasMinutos;
 } *digitosActuales_t;
 
-volatile int estadoVerde = 0;
-// Declaración del semáforo
+// Semáforo para proteger el acceso a los dígitos, es el recuerso compartido
 SemaphoreHandle_t semaforoAccesoDigitos;
 
-// Variables globales para el control del cronómetro
+// Variables globales para el control del cronómetro y LED
 volatile bool pausaCronometro = false;
 volatile bool reiniciarCuenta = false;
 
 void ControlTiempo(void *parametros)
 {
-    TickType_t xLastWakeTime = xTaskGetTickCount(); // Inicialización
+    TickType_t xLastWakeTime = xTaskGetTickCount(); // Inicialización para vTaskDelayUntil
     bool estadoLed = false;
-
+    // Lógica para el manejo de los dígitos del cronómetro
     while (1)
     {
         if (!pausaCronometro)
         {
             if (xSemaphoreTake(semaforoAccesoDigitos, portMAX_DELAY)) // Acceso al recurso compartido
             {
-                // Actualizar los dígitos del cronómetro
-                digitosActuales_t->unidades_segundos = (digitosActuales_t->unidades_segundos + 1) % 10;
-                if (digitosActuales_t->unidades_segundos == 0)
+
+                digitosActuales_t->unidadesSegundos = (digitosActuales_t->unidadesSegundos + 1) % 10;
+
+                if (digitosActuales_t->unidadesSegundos == 0)
                 {
-                    digitosActuales_t->decenas_segundos = (digitosActuales_t->decenas_segundos + 1) % 6;
-                    if (digitosActuales_t->decenas_segundos == 0)
+                    digitosActuales_t->decenasSegundos = (digitosActuales_t->decenasSegundos + 1) % 6;
+
+                    if (digitosActuales_t->decenasSegundos == 0)
                     {
-                        digitosActuales_t->unidades_minutos = (digitosActuales_t->unidades_minutos + 1) % 10;
-                        if (digitosActuales_t->unidades_minutos == 0)
+
+                        digitosActuales_t->unidadesMinutos = (digitosActuales_t->unidadesMinutos + 1) % 10;
+
+                        if (digitosActuales_t->unidadesMinutos == 0)
                         {
-                            digitosActuales_t->decenas_minutos = (digitosActuales_t->decenas_minutos + 1) % 6;
+                            digitosActuales_t->decenasMinutos = (digitosActuales_t->decenasMinutos + 1) % 6;
                         }
                     }
                 }
                 xSemaphoreGive(semaforoAccesoDigitos); // Liberar el recurso compartido
             }
-
-            gpio_set_level(RGB_VERDE, estadoLed); // LED verde parpadeando mientras funciona
-            estadoLed = !estadoLed;
-            gpio_set_level(RGB_AZUL, 0);
+        }
+        else if (reiniciarCuenta)
+        {
+            if (xSemaphoreTake(semaforoAccesoDigitos, portMAX_DELAY)) // Acceso al recurso nuevamente
+            {
+                // Reiniciar los valores del cronómetro
+                digitosActuales_t->unidadesSegundos = 0;
+                digitosActuales_t->decenasSegundos = 0;
+                digitosActuales_t->unidadesMinutos = 0;
+                digitosActuales_t->decenasMinutos = 0;
+                xSemaphoreGive(semaforoAccesoDigitos); // Liberar el recurso compartido
+            }
+            reiniciarCuenta = false; // Limpiar bandera
+        }
+        if (!pausaCronometro)
+        {
+            gpio_set_level(RGB_VERDE, estadoLed);
             gpio_set_level(RGB_ROJO, 0);
         }
-        else
+        if (pausaCronometro)
         {
-            if (reiniciarCuenta)
-            {
-                if (xSemaphoreTake(semaforoAccesoDigitos, portMAX_DELAY)) // Acceso al recurso nuevamente
-                {
-                    // Reiniciar los valores del cronómetro
-                    digitosActuales_t->unidades_segundos = 0;
-                    digitosActuales_t->decenas_segundos = 0;
-                    digitosActuales_t->unidades_minutos = 0;
-                    digitosActuales_t->decenas_minutos = 0;
-                    xSemaphoreGive(semaforoAccesoDigitos); // Liberar el recurso compartido
-                }
-
-                reiniciarCuenta = false; // Se limpia la bandera de reinicio
-            }
-            else
-            {
-                gpio_set_level(RGB_ROJO, estadoLed); // LED rojo parpadeando en pausa
-                estadoLed = !estadoLed;
-                gpio_set_level(RGB_VERDE, 0);
-                gpio_set_level(RGB_AZUL, 0);
-            }
+            gpio_set_level(RGB_ROJO, estadoLed);
+            gpio_set_level(RGB_VERDE, 0);
         }
-
-        vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(10)); // Precisión de 10 ms
+        vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(1000)); // Espero 1 s para los incrementos
+        estadoLed = !estadoLed;
     }
 }
 
 void EscanearPulsadores(void *parametros)
 {
-    TickType_t xLastWakeTime = xTaskGetTickCount(); // Inicialización
+    TickType_t xLastWakeTime = xTaskGetTickCount(); // Inicialización para vTaskDelayUntil
     bool estadoAnteriorPulsadorTEC1_Pausa = true;
     bool estadoAnteriorPulsadorTEC2_Reiniciar = true;
-
+    // Escaneo del teclado
     while (1)
     {
         bool estadoActualTEC1_Pausa = gpio_get_level(TEC1_Pausa);
@@ -133,13 +130,13 @@ void EscanearPulsadores(void *parametros)
         }
         estadoAnteriorPulsadorTEC2_Reiniciar = estadoActualTEC2_Reiniciar;
 
-        vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(50)); // Precisión de 50 ms
+        vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(50));
     }
 }
 
 void ActualizarPantalla(void *parametros)
 {
-    TickType_t xLastWakeTime = xTaskGetTickCount(); // Inicialización
+    TickType_t xLastWakeTime = xTaskGetTickCount(); // Inicialización para vTaskDelayUntil
     ILI9341Init();
     ILI9341Rotate(ILI9341_Landscape_1);
 
@@ -148,78 +145,81 @@ void ActualizarPantalla(void *parametros)
 
     struct digitos_previos
     {
-        int decenasAnteriorMinutos;
-        int unidadesAnteriorMinutos;
-        int decenasAnteriorSegundos;
-        int unidadesAnteriorSegundos;
-    } digitosPrevios = {-1, -1, -1, -1}; // Valores iniciales inválidos
+        int decenasAnterior;
+        int unidadesAnterior;
+        int decenasSegundosAnterior;
+        int unidadesSegundosAnterior;
+    }
+
+    digitosPrevios = {-1, -1, -1, -1}; // Valores iniciales incorrectos para garantizar que se inicialice la cuenta
 
     while (1)
     {
-        if (xSemaphoreTake(semaforoAccesoDigitos, portMAX_DELAY))
-        {
-            if (digitosActuales_t->decenas_minutos != digitosPrevios.decenasAnteriorMinutos)
+        if (xSemaphoreTake(semaforoAccesoDigitos, portMAX_DELAY)) // Verifico disponibilidad del recuerso compartido
+        {                                                         // Logica para solamente actualizar el digito que cambio
+            if (digitosActuales_t->decenasMinutos != digitosPrevios.decenasAnterior)
             {
-                DibujarDigito(horas, 0, digitosActuales_t->decenas_minutos);
-                digitosPrevios.decenasAnteriorMinutos = digitosActuales_t->decenas_minutos;
+                DibujarDigito(horas, 0, digitosActuales_t->decenasMinutos);
+                digitosPrevios.decenasAnterior = digitosActuales_t->decenasMinutos;
             }
-            if (digitosActuales_t->unidades_minutos != digitosPrevios.unidadesAnteriorMinutos)
+            if (digitosActuales_t->unidadesMinutos != digitosPrevios.unidadesAnterior)
             {
-                DibujarDigito(horas, 1, digitosActuales_t->unidades_minutos);
-                digitosPrevios.unidadesAnteriorMinutos = digitosActuales_t->unidades_minutos;
+                DibujarDigito(horas, 1, digitosActuales_t->unidadesMinutos);
+                digitosPrevios.unidadesAnterior = digitosActuales_t->unidadesMinutos;
             }
-            if (digitosActuales_t->decenas_segundos != digitosPrevios.decenasAnteriorSegundos)
+            if (digitosActuales_t->decenasSegundos != digitosPrevios.decenasSegundosAnterior)
             {
-                DibujarDigito(minutos, 0, digitosActuales_t->decenas_segundos);
-                digitosPrevios.decenasAnteriorSegundos = digitosActuales_t->decenas_segundos;
+                DibujarDigito(minutos, 0, digitosActuales_t->decenasSegundos);
+                digitosPrevios.decenasSegundosAnterior = digitosActuales_t->decenasSegundos;
             }
-            if (digitosActuales_t->unidades_segundos != digitosPrevios.unidadesAnteriorSegundos)
+            if (digitosActuales_t->unidadesSegundos != digitosPrevios.unidadesSegundosAnterior)
             {
-                DibujarDigito(minutos, 1, digitosActuales_t->unidades_segundos);
-                digitosPrevios.unidadesAnteriorSegundos = digitosActuales_t->unidades_segundos;
+                DibujarDigito(minutos, 1, digitosActuales_t->unidadesSegundos);
+                digitosPrevios.unidadesSegundosAnterior = digitosActuales_t->unidadesSegundos;
             }
             ILI9341DrawFilledCircle(160, 90, 5, DIGITO_ENCENDIDO);
             ILI9341DrawFilledCircle(160, 130, 5, DIGITO_ENCENDIDO);
 
-            xSemaphoreGive(semaforoAccesoDigitos); // Liberar el semáforo
+            xSemaphoreGive(semaforoAccesoDigitos); // Liberar semáforo
         }
-        vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(100)); // Precisión de 100 ms
+        vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(250)); // Delay para el manejo de la pantalla
     }
 }
 void app_main(void)
 {
-    // Se inicializan los dígitos del cronómetro
-    digitosActuales_t = malloc(sizeof(struct digitos_cronometro));
-    digitosActuales_t->unidades_segundos = 0;
-    digitosActuales_t->decenas_segundos = 0;
-    digitosActuales_t->unidades_minutos = 0;
-    digitosActuales_t->decenas_minutos = 0;
+    // Inicialización de los dígitos del cronómetro
+    digitosActuales_t = malloc(sizeof(struct digitosCronometro));
+    digitosActuales_t->unidadesSegundos = 0;
+    digitosActuales_t->decenasSegundos = 0;
+    digitosActuales_t->unidadesMinutos = 0;
+    digitosActuales_t->decenasMinutos = 0;
 
     // Configuración de los pines del LED RGB
     gpio_set_direction(RGB_ROJO, GPIO_MODE_OUTPUT);
     gpio_set_direction(RGB_VERDE, GPIO_MODE_OUTPUT);
     gpio_set_direction(RGB_AZUL, GPIO_MODE_OUTPUT);
+
+    // Apagar el LED RGB
     gpio_set_level(RGB_ROJO, 0);
     gpio_set_level(RGB_VERDE, 0);
     gpio_set_level(RGB_AZUL, 0);
 
     // Configuración de los pines de los pulsadores
     gpio_set_direction(TEC1_Pausa, GPIO_MODE_INPUT);
-    gpio_set_pull_mode(TEC1_Pausa, GPIO_PULLUP_ONLY); // Resistencia de pull-up
+    gpio_set_pull_mode(TEC1_Pausa, GPIO_PULLUP_ONLY); // Resistencia interna de pull-up
 
     gpio_set_direction(TEC2_Reiniciar, GPIO_MODE_INPUT);
-    gpio_set_pull_mode(TEC2_Reiniciar, GPIO_PULLUP_ONLY); // Resistencia de pull-up
+    gpio_set_pull_mode(TEC2_Reiniciar, GPIO_PULLUP_ONLY); // Resistencia interna de pull-up
 
-    // Crear el semáforo
+    // Se crea el semáforo para proteger el acceso a los dígitos
     semaforoAccesoDigitos = xSemaphoreCreateMutex();
 
     // Crear las tareas
-    xTaskCreate(ControlTiempo, "ControlTiempo", 2048, NULL, tskIDLE_PRIORITY + 1, NULL);
+    xTaskCreate(ControlTiempo, "ControlTiempo", 2048, NULL, tskIDLE_PRIORITY + 2, NULL);
     xTaskCreate(EscanearPulsadores, "EscanearPulsadores", 1024, NULL, tskIDLE_PRIORITY + 1, NULL);
-    xTaskCreate(ActualizarPantalla, "ActualizarPantalla", 4096, NULL, tskIDLE_PRIORITY + 2, NULL);
+    xTaskCreate(ActualizarPantalla, "ActualizarPantalla", 4096, NULL, tskIDLE_PRIORITY + 1, NULL);
 
     while (1)
     {
-        vTaskDelay(pdMS_TO_TICKS(1));
     }
 }
